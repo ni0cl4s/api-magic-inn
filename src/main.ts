@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const PORT: string | number = 3333 || process.env.PORT;
 const HOST: string = process.env.HOST || 'localhost';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
