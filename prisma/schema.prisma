@@ -21,7 +21,7 @@ model UserProfile {
   id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  characterName   String
+  characterName   String            @unique
   race            String
   class           String
   userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
@@ -34,7 +34,7 @@ model Room {
   id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  name            String
+  name            String            @unique
   type            String
   capacity        Int
   price           Int
@@ -57,7 +57,7 @@ model MenuItem {
   id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
-  name         String
+  name         String       @unique
   description  String
   price        Int
   menuItemType MenuItemType
