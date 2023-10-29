@@ -22,8 +22,8 @@ model UserProfile {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   characterName   String            @unique
-  race            String
-  class           String
+  characterRace   String
+  characterClass  String
   userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
   userAccountId   String            @unique @db.Uuid
   roomReservation RoomReservation[]
