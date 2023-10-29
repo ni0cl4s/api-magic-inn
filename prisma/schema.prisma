@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAccount {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  email          String       @unique
+  hashedPassword String
+  refreshToken   String?
+  userProfile    UserProfile?
+}
+
+model UserProfile {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  characterName   String            @unique
+  race            String
+  class           String
+  userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
+  userAccountId   String            @unique @db.Uuid
+  roomReservation RoomReservation[]
+  orders          Order[]
+}
+
+model Room {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  name            String            @unique
+  type            String
+  capacity        Int
+  price           Int
+  roomReservation RoomReservation[]
+}
+
+model RoomReservation {
+  id            String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  room          Room        @relation(fields: [roomId], references: [id])
+  roomId        String      @db.Uuid
+  startDate     DateTime
+  endDate       DateTime
+  userProfile   UserProfile @relation(fields: [userProfileId], references: [id])
+  userProfileId String      @db.Uuid
+}
+
+model MenuItem {
+  id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  name         String       @unique
+  description  String
+  price        Int
+  menuItemType MenuItemType
+  orders       Order[]
+}
+
+enum MenuItemType {
+  FOOD
+  DRINK
+}
+
+model Order {
+  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime    @default(now())
+  userProfile      UserProfile @relation(fields: [userProfileId], references: [id])
+  userProfileId    String      @db.Uuid
+  menuItem         MenuItem    @relation(fields: [menuItemId], references: [id])
+  menuItemId       String      @db.Uuid
+  menuItemQuantity Int
+}
