@@ -13,6 +13,7 @@ model UserAccount {
   updatedAt      DateTime     @updatedAt
   email          String       @unique
   hashedPassword String
+  role           Role         @default(USER)
   refreshToken   String?
   userProfile    UserProfile?
 }
@@ -22,8 +23,8 @@ model UserProfile {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   characterName   String            @unique
-  race            String
-  class           String
+  characterRace   String
+  characterClass  String
   userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
   userAccountId   String            @unique @db.Uuid
   roomReservation RoomReservation[]
@@ -77,4 +78,9 @@ model Order {
   menuItem         MenuItem    @relation(fields: [menuItemId], references: [id])
   menuItemId       String      @db.Uuid
   menuItemQuantity Int
+}
+
+enum Role {
+  ADMIN
+  USER
 }
