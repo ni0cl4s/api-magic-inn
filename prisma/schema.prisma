@@ -22,8 +22,8 @@ model UserProfile {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   characterName   String            @unique
-  characterRace   Race              @default(HUMAN)
-  characterClass  Classe            @default(WARRIOR)
+  characterRace   CharacterRace     @default(HUMAN)
+  characterClass  CharacterClass    @default(WARRIOR)
   userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
   userAccountId   String            @unique @db.Uuid
   roomReservation RoomReservation[]
@@ -84,7 +84,7 @@ enum Role {
   USER
 }
 
-enum Race {
+enum CharacterRace {
   HUMAN
   ELF
   DWARF
@@ -96,7 +96,7 @@ enum Race {
   TIEFLING
 }
 
-enum Classe {
+enum CharacterClass {
   WARRIOR
   MAGE
   ROGUE

@@ -7,6 +7,7 @@ import { AccountPrismaRepository } from '../../infrastructure/prisma-repositorie
 import { JwtTokenService } from '../../infrastructure/services/jwt/jwt.service';
 import { JwtService } from '@nestjs/jwt';
 import { ProfilePrismaRepository } from '../../infrastructure/prisma-repositories/profile/profile.prisma.repository';
+import { SignupUseCases } from './signup.use-cases';
 
 @Module({
   imports: [PrismaModule],
@@ -28,9 +29,10 @@ import { ProfilePrismaRepository } from '../../infrastructure/prisma-repositorie
       useClass: JwtTokenService,
     },
     LoginUseCases,
+    SignupUseCases,
     LoggerService,
     JwtService,
   ],
-  exports: [LoginUseCases],
+  exports: [LoginUseCases, SignupUseCases],
 })
 export class AuthUseCasesModule {}
