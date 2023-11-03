@@ -1,6 +1,15 @@
 -- CreateEnum
 CREATE TYPE "MenuItemType" AS ENUM ('FOOD', 'DRINK');
 
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER');
+
+-- CreateEnum
+CREATE TYPE "Race" AS ENUM ('HUMAN', 'ELF', 'DWARF', 'GNOME', 'HALFLING', 'HALF_ELF', 'HALF_ORC', 'DRAGONBORN', 'TIEFLING');
+
+-- CreateEnum
+CREATE TYPE "Classe" AS ENUM ('WARRIOR', 'MAGE', 'ROGUE', 'CLERIC', 'DRUID', 'PALADIN', 'RANGER', 'BARD', 'SORCERER');
+
 -- CreateTable
 CREATE TABLE "UserAccount" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -8,7 +17,7 @@ CREATE TABLE "UserAccount" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
     "hashedPassword" TEXT NOT NULL,
-    "refreshToken" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'USER',
 
     CONSTRAINT "UserAccount_pkey" PRIMARY KEY ("id")
 );
@@ -19,8 +28,8 @@ CREATE TABLE "UserProfile" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "characterName" TEXT NOT NULL,
-    "race" TEXT NOT NULL,
-    "class" TEXT NOT NULL,
+    "characterRace" "Race" NOT NULL DEFAULT 'HUMAN',
+    "characterClass" "Classe" NOT NULL DEFAULT 'WARRIOR',
     "userAccountId" UUID NOT NULL,
 
     CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("id")
@@ -80,7 +89,16 @@ CREATE TABLE "Order" (
 CREATE UNIQUE INDEX "UserAccount_email_key" ON "UserAccount"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserProfile_characterName_key" ON "UserProfile"("characterName");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "UserProfile_userAccountId_key" ON "UserProfile"("userAccountId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Room_name_key" ON "Room"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MenuItem_name_key" ON "MenuItem"("name");
 
 -- AddForeignKey
 ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userAccountId_fkey" FOREIGN KEY ("userAccountId") REFERENCES "UserAccount"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -14,7 +14,6 @@ model UserAccount {
   email          String       @unique
   hashedPassword String
   role           Role         @default(USER)
-  refreshToken   String?
   userProfile    UserProfile?
 }
 
@@ -23,8 +22,8 @@ model UserProfile {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   characterName   String            @unique
-  characterRace   String
-  characterClass  String
+  characterRace   Race              @default(HUMAN)
+  characterClass  Classe            @default(WARRIOR)
   userAccount     UserAccount       @relation(fields: [userAccountId], references: [id])
   userAccountId   String            @unique @db.Uuid
   roomReservation RoomReservation[]
@@ -83,4 +82,28 @@ model Order {
 enum Role {
   ADMIN
   USER
+}
+
+enum Race {
+  HUMAN
+  ELF
+  DWARF
+  GNOME
+  HALFLING
+  HALF_ELF
+  HALF_ORC
+  DRAGONBORN
+  TIEFLING
+}
+
+enum Classe {
+  WARRIOR
+  MAGE
+  ROGUE
+  CLERIC
+  DRUID
+  PALADIN
+  RANGER
+  BARD
+  SORCERER
 }
