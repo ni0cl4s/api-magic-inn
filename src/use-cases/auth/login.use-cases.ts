@@ -57,6 +57,11 @@ export class LoginUseCases {
       jwtPayload,
       process.env.JWT_SECRET,
     );
+    if (!jwtPayload || !accessToken) {
+      throw new Error('Failed to login');
+    } else {
+      this.loggerService.log('LoginUseCases', 'Login successfully');
+    }
     return {
       accessToken: accessToken,
     };

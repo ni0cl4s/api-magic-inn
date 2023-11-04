@@ -17,7 +17,9 @@ async function bootstrap() {
   );
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Magic Inn')
-    .setDescription('API for Magic Inn')
+    .setDescription(
+      'The goal of this API is to enable the management of a magical inn located in a medieval-fantasy world. Users will be able to book rooms, order food, and enjoy an immersive experience in this fantastical universe.',
+    )
     .setVersion('1.0')
     .addBearerAuth()
     .setExternalDoc('Postman Collection', '/swagger-json')
