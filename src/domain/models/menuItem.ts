@@ -1,25 +1,20 @@
-import { MenuItemTypeModel } from './menuItemType';
-import { OrderModel } from './order';
-
 export class MenuItemModel {
-  private readonly id: string;
-  private readonly name: string;
-  private readonly description: string;
-  private readonly price: number;
-  private readonly menuItemType: MenuItemTypeModel;
-  private readonly createdAt: Date;
-  private readonly updatedAt: Date;
-  private readonly orders: OrderModel[];
+  public readonly id: string;
+  public readonly name: string;
+  public readonly description: string;
+  public readonly price: number;
+  public readonly menuItemType: string;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
 
   constructor(
     id: string,
     name: string,
     description: string,
     price: number,
-    menuItemType: MenuItemTypeModel,
+    menuItemType: string,
     createdAt: Date,
     updatedAt: Date,
-    orders: OrderModel[],
   ) {
     this.id = id;
     this.name = name;
@@ -28,6 +23,5 @@ export class MenuItemModel {
     this.menuItemType = menuItemType;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
-    this.orders = orders;
   }
 }

@@ -1,16 +1,11 @@
-import { RoomReservationModel } from './roomReservation';
-import { OrderModel } from './order';
-
 export class UserProfileModel {
-  private readonly id: string;
-  private readonly characterName: string;
-  private readonly characterRace: string;
-  private readonly characterClass: string;
-  private readonly userAccountId: string;
-  private readonly createdAt: Date;
-  private readonly updatedAt: Date;
-  private readonly roomReservations: RoomReservationModel[];
-  private readonly orders: OrderModel[];
+  public readonly id: string;
+  public readonly characterName: string;
+  public readonly characterRace: string;
+  public readonly characterClass: string;
+  public readonly userAccountId: string;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
 
   constructor(
     id: string,
@@ -20,8 +15,6 @@ export class UserProfileModel {
     userAccountId: string,
     createdAt: Date,
     updatedAt: Date,
-    roomReservations: RoomReservationModel[],
-    orders: OrderModel[],
   ) {
     this.id = id;
     this.characterName = characterName;
@@ -30,7 +23,5 @@ export class UserProfileModel {
     this.userAccountId = userAccountId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
-    this.roomReservations = roomReservations;
-    this.orders = orders;
   }
 }
