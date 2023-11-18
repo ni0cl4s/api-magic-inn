@@ -42,7 +42,7 @@ export class MenuItemController {
   async getAllMenuItem(): Promise<MenuItemModel[]> {
     this.loggerService.log(
       'MenuItemController',
-      `Attempting get all menu item`,
+      `Attempting get all menu items`,
     );
     return await this.menuItemUseCases.getAllMenuItem();
   }
