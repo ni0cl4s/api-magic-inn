@@ -19,7 +19,7 @@ import { AddRoomDto } from './add-room.dto';
 import { UpdateRoomDto } from './update-room.dto';
 import { RoomUseCases } from '../../../use-cases/room/room.use-cases';
 
-@Controller('room')
+@Controller()
 @ApiBearerAuth()
 @ApiTags('Room')
 @UseGuards(JwtGuard, RoleGuard)
@@ -29,20 +29,20 @@ export class RoomController {
     private readonly loggerService: LoggerService,
   ) {}
 
-  @Post()
+  @Post('room')
   @HasRoles(Role.ADMIN)
   async addRoom(@Body() addRoomDto: AddRoomDto): Promise<RoomModel> {
     this.loggerService.log('RoomController', `Attempting add room`);
     return await this.roomUseCases.addRoom(addRoomDto);
   }
 
-  @Get()
+  @Get('rooms')
   async getAllRoom(): Promise<RoomModel[]> {
     this.loggerService.log('RoomController', `Attempting get all rooms`);
     return await this.roomUseCases.getAllRoom();
   }
 
-  @Get(':id')
+  @Get('room/:id')
   async getRoomById(@Param('id') id: string): Promise<RoomModel> {
     this.loggerService.log(
       'RoomController',
@@ -51,7 +51,7 @@ export class RoomController {
     return await this.roomUseCases.getRoomById(id);
   }
 
-  @Put(':id')
+  @Put('room/:id')
   @HasRoles(Role.ADMIN)
   async updateRoom(
     @Param('id') id: string,
@@ -64,7 +64,7 @@ export class RoomController {
     return await this.roomUseCases.updateRoom(id, updateRoomDto);
   }
 
-  @Delete(':id')
+  @Delete('room/:id')
   @HasRoles(Role.ADMIN)
   async deleteRoom(@Param('id') id: string): Promise<string> {
     this.loggerService.log(
