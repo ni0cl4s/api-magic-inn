@@ -19,7 +19,7 @@ import { MenuItemUseCases } from '../../../use-cases/menu-item/menu-item.use-cas
 import { MenuItemModel } from '../../../domain/models/menuItem';
 import { LoggerService } from '../../logger/logger.service';
 
-@Controller('menu-item')
+@Controller()
 @ApiBearerAuth()
 @ApiTags('Menu Item')
 @UseGuards(JwtGuard, RoleGuard)
@@ -29,7 +29,7 @@ export class MenuItemController {
     private readonly loggerService: LoggerService,
   ) {}
 
-  @Post()
+  @Post('menu-item')
   @HasRoles(Role.ADMIN)
   async addMenuItem(
     @Body() addMenuItemDto: AddMenuItemDto,
@@ -38,16 +38,16 @@ export class MenuItemController {
     return await this.menuItemUseCases.addMenuItem(addMenuItemDto);
   }
 
-  @Get()
+  @Get('menu-items')
   async getAllMenuItem(): Promise<MenuItemModel[]> {
     this.loggerService.log(
       'MenuItemController',
-      `Attempting get all menu item`,
+      `Attempting get all menu items`,
     );
     return await this.menuItemUseCases.getAllMenuItem();
   }
 
-  @Get(':id')
+  @Get('menu-item/:id')
   async getMenuItemById(@Param('id') id: string): Promise<MenuItemModel> {
     this.loggerService.log(
       'MenuItemController',
@@ -56,7 +56,7 @@ export class MenuItemController {
     return await this.menuItemUseCases.getMenuItemById(id);
   }
 
-  @Put(':id')
+  @Put('menu-item/:id')
   @HasRoles(Role.ADMIN)
   async updateMenuItem(
     @Param('id') id: string,
@@ -69,7 +69,7 @@ export class MenuItemController {
     return await this.menuItemUseCases.updateMenuItem(id, updateMenuItemDto);
   }
 
-  @Delete(':id')
+  @Delete('menu-item/:id')
   @HasRoles(Role.ADMIN)
   async deleteMenuItem(@Param('id') id: string): Promise<string> {
     this.loggerService.log(

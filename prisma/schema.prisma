@@ -35,7 +35,7 @@ model Room {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   name            String            @unique
-  type            String
+  type            RoomType          @default(NORMAL)
   capacity        Int
   price           Int
   roomReservation RoomReservation[]
@@ -106,4 +106,12 @@ enum CharacterClass {
   RANGER
   BARD
   SORCERER
+}
+
+enum RoomType {
+  MAGIC
+  NORMAL
+  VIP
+  LUXURY
+  LOWCOST
 }
