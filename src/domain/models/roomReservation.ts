@@ -1,11 +1,11 @@
 export class RoomReservationModel {
-  private readonly id: string;
-  private readonly roomId: string;
-  private readonly userProfileId: string;
-  private readonly startDate: Date;
-  private readonly endDate: Date;
-  private readonly createdAt: Date;
-  private readonly updatedAt: Date;
+  public readonly id: string;
+  public readonly roomId: string;
+  public readonly userProfileId: string;
+  public readonly startDate: Date;
+  public readonly endDate: Date;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
 
   constructor(
     id: string,
